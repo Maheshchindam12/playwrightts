@@ -1,1 +1,151 @@
-hi
+npm init -y
+
+npm init playwright@latest
+
+Do you want to use TypeScript or JavaScript? › TypeScript
+✔ Where to put your end-to-end tests? › tests
+✔ Add a GitHub Actions workflow? › Yes (or No)
+✔ Install Playwright browsers? › Yes
+
+After installation, you'll have something like:
+
+playwright-ts/
+│
+├── node_modules/
+├── playwright.config.ts
+├── package.json
+├── package-lock.json
+├── tests/
+│   └── example.spec.ts
+├── test-results/
+└── playwright-report/
+
+
+For a framework using the Page Object Model (POM), a common structure is:
+
+playwright-ts/
+│
+├── tests/
+│   ├── login.spec.ts
+│   └── dashboard.spec.ts
+│
+├── pages/
+│   ├── LoginPage.ts
+│   └── DashboardPage.ts
+│
+├── fixtures/
+│   └── baseFixture.ts
+│
+├── utils/
+│   ├── testData.ts
+│   └── helpers.ts
+│
+├── playwright.config.ts
+├── package.json
+└── tsconfig.json
+
+
+Install browsers
+
+If needed:
+
+npx playwright install
+
+Run all tests
+npx playwright test
+
+
+Run a specific test
+npx playwright test tests/login.spec.ts
+
+. Run in headed mode
+npx playwright test --headed
+
+Run in a specific browser
+
+Chromium:
+
+npx playwright test --project=chromium
+
+Firefox:
+
+npx playwright test --project=firefox
+
+WebKit:
+
+npx playwright test --project=webkit
+
+npx playwright show-report
+
+
+Record a test
+npx playwright codegen https://example.com
+
+14. Useful npm scripts
+Add these to package.json:
+
+{
+  "scripts": {
+    "test": "playwright test",
+    "headed": "playwright test --headed",
+    "debug": "playwright test --debug",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen"
+  }
+}
+
+Then you can run:
+
+npm test
+npm run headed
+npm run debug
+npm run report
+npm run codegen
+
+.ts file run by   npx ts-node hello.ts
+
+restore packages by npm install
+
+
+3. playwright.config.ts
+
+This is the brain of the framework.
+
+It controls:
+
+Browsers
+Base URL
+Timeouts
+Reports
+Retries
+Screenshots
+Videos
+
+
+Priority	Locator	Recommendation
+⭐⭐⭐⭐⭐	getByRole()	First choice when applicable
+⭐⭐⭐⭐⭐	getByLabel()	Great for forms
+⭐⭐⭐⭐⭐	getByTestId()	Excellent if the app provides test IDs
+⭐⭐⭐⭐	getByPlaceholder()	Good for placeholder-based inputs
+⭐⭐⭐	locator('#id')	Good when IDs are stable
+⭐⭐	CSS selectors	Useful when semantic locators aren't available
+⭐	XPath	Use only when necessary
+
+
+expect(locator).toBeVisible();
+
+expect(locator).toHaveText();
+
+expect(page).toHaveURL();
+
+expect(page).toHaveTitle();
+
+expect(locator).toContainText();
+
+expect(locator).toBeEnabled();
+
+expect(locator).toBeDisabled();
+
+expect(locator).toBeChecked();
+
+
