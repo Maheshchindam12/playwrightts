@@ -93,23 +93,21 @@
 // });
 
 
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
-import { InventoryPage } from '../pages/InventoryPage';
-
+// import { test, expect } from '@playwright/test';
+// import { LoginPage } from '../pages/LoginPage';
+// import { InventoryPage } from '../pages/InventoryPage';
+import { test, expect } from '../fixtures/fixture';
 import loginData from '../data/loginData.json';
 import { env } from '../utils/env';
+import { LoginPage } from '../pages/LoginPage';
 
 
-test.beforeEach(async ({ page }) => {
-    const loginPage = new LoginPage(page);
+test.beforeEach(async ({ page, loginPage }) => {
     await loginPage.navigate();
 });
 
-test('Valid Login using POM', async ({ page }) => {
+test('Valid Login using POM', async ({ page, loginPage, inventoryPage }) => {
 
-    const loginPage = new LoginPage(page);
-    const inventoryPage = new InventoryPage(page);
     await loginPage.navigate();
 
     await loginPage.login(
@@ -128,9 +126,9 @@ test('Valid Login using POM', async ({ page }) => {
     await inventoryPage.openCart();
 });
 
-test('Invalid Login', async ({ page }) => {
+test('Invalid Login', async ({ page, loginPage }) => {
 
-    const loginPage = new LoginPage(page);
+    // const loginPage = new LoginPage(page);
 
     await loginPage.login(
         // loginData.invalidUser.username,

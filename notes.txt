@@ -178,3 +178,6 @@ test-results/
 .env
 
 This prevents passwords and other sensitive values from being pushed to your repository.
+
+
+Fixtures are one of the biggest reasons Playwright frameworks are clean, scalable, and easy to maintain.
