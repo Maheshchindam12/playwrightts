@@ -1,0 +1,5 @@
+vs code
+extension -> Github copilot
+vs code > pw test for vs code > to run the test case. 
+pw mcp server installer > from microsft site > 
+create test toContainText

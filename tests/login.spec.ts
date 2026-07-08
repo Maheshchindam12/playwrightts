@@ -1,93 +1,144 @@
+// import { test, expect } from '@playwright/test';
+
+// test.describe('SauceDemo Login Tests', () => {
+
+//     test('Valid Login', async ({ page }) => {
+
+//         // Navigate to the application
+//         await page.goto('https://www.saucedemo.com/');
+
+//         // Enter valid credentials
+//         await page.getByPlaceholder('Username').fill('standard_user');
+//         await page.getByPlaceholder('Password').fill('secret_sauce');
+
+//         // Click Login
+//         await page.getByRole('button', { name: 'Login' }).click();
+
+//         // Verify successful login
+//         await expect(page).toHaveURL(/inventory/);
+//         await expect(page.getByText('Products')).toBeVisible();
+
+//     });
+
+//     test('Invalid Login', async ({ page }) => {
+
+//         // Navigate to the application
+//         await page.goto('https://www.saucedemo.com/');
+
+//         // Enter invalid credentials
+//         await page.getByPlaceholder('Username').fill('wrong_user');
+//         await page.getByPlaceholder('Password').fill('wrong_password');
+
+//         // Click Login
+//         await page.getByRole('button', { name: 'Login' }).click();
+
+//         // Locate the error message
+//         const errorMessage = page.locator('[data-test="error"]');
+
+//         // Get the text
+//         const actualError = await errorMessage.textContent();
+
+//         console.log(actualError);
+
+//         // Expected text
+//         const expectedError =
+//             'Epic sadface: Username and password do not match any user in this service';
+
+//         // Compare
+//         expect(actualError?.trim()).toBe(expectedError);
+//         await expect(
+//             page.locator('[data-test="error"]')
+//         ).toHaveText(expectedError);
+//     });
+
+//     test.describe('SauceDemo Cart Functionality', () => {
+
+//         test('Add and Remove Product from Cart', async ({ page }) => {
+
+//             // Step 1: Navigate to SauceDemo
+//             await page.goto('https://www.saucedemo.com/');
+
+//             // Step 2: Login
+//             await page.getByPlaceholder('Username').fill('standard_user');
+//             await page.getByPlaceholder('Password').fill('secret_sauce');
+//             await page.getByRole('button', { name: 'Login' }).click();
+
+//             // Step 3: Verify successful login
+//             await expect(page).toHaveURL(/inventory/);
+//             await expect(page.getByText('Products')).toBeVisible();
+
+//             // Step 4: Add Backpack to Cart
+//             await page.getByRole('button', { name: 'Add to cart' }).first().click();
+
+//             // Verify cart badge
+//             await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
+
+//             // Step 5: Open Cart
+//             await page.locator('.shopping_cart_link').click();
+
+//             // Step 6: Verify product exists in cart
+//             await expect(page.getByText('Sauce Labs Backpack')).toBeVisible();
+
+//             // Step 7: Remove product
+//             await page.getByRole('button', { name: 'Remove' }).click();
+
+//             // Step 8: Verify cart is empty
+//             await expect(page.locator('.cart_item')).toHaveCount(0);
+//             await expect(page.locator('.shopping_cart_badge')).toHaveCount(0);
+
+//         });
+
+//     });
+
+// });
+
+
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/LoginPage';
+import { InventoryPage } from '../pages/InventoryPage';
 
-test.describe('SauceDemo Login Tests', () => {
+import loginData from '../data/loginData.json';
+import { env } from '../utils/env';
 
-    test('Valid Login', async ({ page }) => {
 
-        // Navigate to the application
-        await page.goto('https://www.saucedemo.com/');
+test.beforeEach(async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.navigate();
+});
 
-        // Enter valid credentials
-        await page.getByPlaceholder('Username').fill('standard_user');
-        await page.getByPlaceholder('Password').fill('secret_sauce');
+test('Valid Login using POM', async ({ page }) => {
 
-        // Click Login
-        await page.getByRole('button', { name: 'Login' }).click();
+    const loginPage = new LoginPage(page);
+    const inventoryPage = new InventoryPage(page);
+    await loginPage.navigate();
 
-        // Verify successful login
-        await expect(page).toHaveURL(/inventory/);
-        await expect(page.getByText('Products')).toBeVisible();
+    await loginPage.login(
+        // loginData.validUser.username,
+        // loginData.validUser.password
+        env.username,
+        env.password
+    );
 
-    });
+    await expect(page).toHaveURL(/inventory/);
 
-    test('Invalid Login', async ({ page }) => {
+    await inventoryPage.verifyProductsPage();
 
-        // Navigate to the application
-        await page.goto('https://www.saucedemo.com/');
+    await inventoryPage.addBackpackToCart();
 
-        // Enter invalid credentials
-        await page.getByPlaceholder('Username').fill('wrong_user');
-        await page.getByPlaceholder('Password').fill('wrong_password');
+    await inventoryPage.openCart();
+});
 
-        // Click Login
-        await page.getByRole('button', { name: 'Login' }).click();
+test('Invalid Login', async ({ page }) => {
 
-        // Locate the error message
-        const errorMessage = page.locator('[data-test="error"]');
+    const loginPage = new LoginPage(page);
 
-        // Get the text
-        const actualError = await errorMessage.textContent();
+    await loginPage.login(
+        // loginData.invalidUser.username,
+        // loginData.invalidUser.password
+        process.env.USERNAME!,
+        process.env.PASSWORD!
+    );
 
-        console.log(actualError);
-
-        // Expected text
-        const expectedError =
-            'Epic sadface: Username and password do not match any user in this service';
-
-        // Compare
-        expect(actualError?.trim()).toBe(expectedError);
-        await expect(
-            page.locator('[data-test="error"]')
-        ).toHaveText(expectedError);
-    });
-
-    test.describe('SauceDemo Cart Functionality', () => {
-
-        test('Add and Remove Product from Cart', async ({ page }) => {
-
-            // Step 1: Navigate to SauceDemo
-            await page.goto('https://www.saucedemo.com/');
-
-            // Step 2: Login
-            await page.getByPlaceholder('Username').fill('standard_user');
-            await page.getByPlaceholder('Password').fill('secret_sauce');
-            await page.getByRole('button', { name: 'Login' }).click();
-
-            // Step 3: Verify successful login
-            await expect(page).toHaveURL(/inventory/);
-            await expect(page.getByText('Products')).toBeVisible();
-
-            // Step 4: Add Backpack to Cart
-            await page.getByRole('button', { name: 'Add to cart' }).first().click();
-
-            // Verify cart badge
-            await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
-
-            // Step 5: Open Cart
-            await page.locator('.shopping_cart_link').click();
-
-            // Step 6: Verify product exists in cart
-            await expect(page.getByText('Sauce Labs Backpack')).toBeVisible();
-
-            // Step 7: Remove product
-            await page.getByRole('button', { name: 'Remove' }).click();
-
-            // Step 8: Verify cart is empty
-            await expect(page.locator('.cart_item')).toHaveCount(0);
-            await expect(page.locator('.shopping_cart_badge')).toHaveCount(0);
-
-        });
-
-    });
-
+    await expect(page.locator('[data-test="error"]'))
+        .toContainText('Epic sadface');
 });

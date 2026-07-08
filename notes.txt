@@ -152,3 +152,29 @@ expect(locator).toBeChecked();
 git add .
 git commit -m "Added new changes"
 git push
+
+
+npm install dotenv
+
+A .env file stores configuration values outside your code.Your code reads these values at runtime.
+
+await page.goto(process.env.BASE_URL!);
+The ! tells TypeScript:
+
+"I know this value exists."
+
+
+Never commit secrets to Git.
+
+Create or update:
+
+.gitignore
+
+Add:
+
+node_modules/
+playwright-report/
+test-results/
+.env
+
+This prevents passwords and other sensitive values from being pushed to your repository.
