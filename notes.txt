@@ -131,6 +131,13 @@ Priority	Locator	Recommendation
 ⭐⭐	CSS selectors	Useful when semantic locators aren't available
 ⭐	XPath	Use only when necessary
 
+⭐⭐⭐⭐⭐	getByRole()	✅ Best
+⭐⭐⭐⭐⭐	getByLabel()	✅ Best
+⭐⭐⭐⭐⭐	getByPlaceholder()	✅ Best
+⭐⭐⭐⭐	getByTestId()	✅ Very Good
+⭐⭐⭐	getByText()	Good
+⭐⭐	locator() (CSS)	Good
+⭐	XPath	Avoid if possible
 
 expect(locator).toBeVisible();
 
