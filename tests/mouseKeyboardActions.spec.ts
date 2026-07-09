@@ -57,9 +57,18 @@ test('Practice all mouse and keyboard actions', async ({ page }) => {
 
     await page.goto('https://demoqa.com/droppable');
 
-    await page.locator('#draggable').dragTo(
-        page.locator('#droppable')
-    );
+    const source = page
+        .getByRole('tabpanel', { name: 'Simple' })
+        .locator('#draggable');
+
+    const target = page
+        .getByRole('tabpanel', { name: 'Simple' })
+        .locator('#droppable');
+
+    await source.dragTo(target);
+
+    await expect(target).toContainText('Dropped!');
+
 
     await expect(page.locator('#droppable'))
         .toContainText('Dropped!');
