@@ -1,3 +1,5 @@
+Locator Labs-Playwright, Selenium, Cypress & WebdriverIO Locator Generator
+
 npm init -y
 
 npm init playwright@latest
@@ -171,6 +173,13 @@ The ! tells TypeScript:
 "I know this value exists."
 
 
+npm list @types/node
+typescript-practice@1.0.0 C:\QZ Work Station\typescript-practice
+└── @types/node@26.1.0
+
+
+----
+
 Never commit secrets to Git.
 
 Create or update:
@@ -188,3 +197,7 @@ This prevents passwords and other sensitive values from being pushed to your rep
 
 
 Fixtures are one of the biggest reasons Playwright frameworks are clean, scalable, and easy to maintain.
+
+
+TEST_ENV=dev npx playwright test
+set TEST_ENV=dev && npx playwright test tests/login.spec.ts

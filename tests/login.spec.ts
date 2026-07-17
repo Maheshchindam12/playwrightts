@@ -140,3 +140,27 @@ test('Invalid Login', async ({ page, loginPage }) => {
     await expect(page.locator('[data-test="error"]'))
         .toContainText('Epic sadface');
 });
+
+import '../utils/env';
+
+import { AppConfig } from '../constants/AppConfig';
+
+test('Login using environment variables', async ({ page }) => {
+
+    await page.goto(AppConfig.baseURL);
+
+    await page
+        .getByPlaceholder('Username')
+        .fill(AppConfig.username);
+
+    await page
+        .getByPlaceholder('Password')
+        .fill(AppConfig.password);
+
+    await page.getByRole('button', {
+        name: 'Login'
+    }).click();
+
+    await expect(page).toHaveURL(/inventory/);
+
+});

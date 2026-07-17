@@ -3,12 +3,13 @@ name: Playwright Tests
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
-  test:
+  regression:
     runs-on: ubuntu-latest
+
+    env:
+      TEST_ENV: dev
 
     steps:
       - uses: actions/checkout@v4
@@ -21,9 +22,7 @@ jobs:
 
       - run: npx playwright install --with-deps
 
-      - run: npm test
-
-      - run: npx playwright test
+      - run: npm run test:dev
 
       - uses: actions/upload-artifact@v4
         if: always()
