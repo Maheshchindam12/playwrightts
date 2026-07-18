@@ -131,10 +131,8 @@ test('Invalid Login', async ({ page, loginPage }) => {
     // const loginPage = new LoginPage(page);
 
     await loginPage.login(
-        // loginData.invalidUser.username,
-        // loginData.invalidUser.password
-        process.env.USERNAME!,
-        process.env.PASSWORD!
+        env.invalidUsername,
+        env.invalidPassword
     );
 
     await expect(page.locator('[data-test="error"]'))

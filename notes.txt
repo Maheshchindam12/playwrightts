@@ -201,3 +201,26 @@ Fixtures are one of the biggest reasons Playwright frameworks are clean, scalabl
 
 TEST_ENV=dev npx playwright test
 set TEST_ENV=dev && npx playwright test tests/login.spec.ts
+
+
+
+first time project clone then 
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+npm install
+ node -v
+  npm -v
+
+  npx playwright install
+
+  npm install -D typescript
+
+  npm install -D @types/node
+
+
+. Install Playwright MCP server
+
+Install globally:
+
+npm install -g @playwright/mcp
+
+$env:TEST_ENV="dev"; npx playwright test tests/login.spec.ts

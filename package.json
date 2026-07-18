@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
+    "test:dev": "playwright test",
+    "test:qa": "set TEST_ENV=qa&& playwright test",
+    "test:prod": "set TEST_ENV=prod&& playwright test",
     "headed": "playwright test --headed",
     "debug": "playwright test --debug",
     "report": "playwright show-report",
@@ -24,7 +27,8 @@
   "homepage": "https://github.com/Maheshchindam12/playwrightts#readme",
   "devDependencies": {
     "@playwright/test": "^1.61.1",
-    "@types/node": "^26.1.0"
+    "@types/node": "^26.1.1",
+    "typescript": "^7.0.2"
   },
   "dependencies": {
     "dotenv": "^17.4.2"

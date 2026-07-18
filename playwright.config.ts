@@ -1,8 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
 
+const environment = (process.env.TEST_ENV || 'dev').toLowerCase().trim();
 
-dotenv.config();
+dotenv.config({
+  path: path.resolve(__dirname, 'config', `${environment}.env`),
+  override: true,
+});
 
 /**
  * Read environment variables from file.
