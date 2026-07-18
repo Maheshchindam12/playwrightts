@@ -224,3 +224,11 @@ Install globally:
 npm install -g @playwright/mcp
 
 $env:TEST_ENV="dev"; npx playwright test tests/login.spec.ts
+$env:TEST_ENV="dev"; npx playwright test tests/api
+
+
+Install schema validator
+
+Install ajv:
+
+npm install -D ajv
