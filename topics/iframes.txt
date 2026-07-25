@@ -1,0 +1,50 @@
+This is the approach used in most modern Playwright automation frameworks.
+
+import { test, expect } from '@playwright/test';
+
+test('Handle iframe using frameLocator', async ({ page }) => {
+  await page.goto('https://example.com');
+
+  const frame = page.frameLocator('#login-frame');
+
+  await frame.locator('#username').fill('admin');
+  await frame.locator('#password').fill('password123');
+  await frame.locator('#login').click();
+
+  await expect(frame.locator('.success')).toBeVisible();
+});
+
+
+Use this when you know the iframe's name or URL.
+
+import { test } from '@playwright/test';
+
+test('Handle iframe using page.frame()', async ({ page }) => {
+  await page.goto('https://example.com');
+
+  const frame = page.frame({ name: 'loginFrame' });
+
+  if (frame) {
+    await frame.fill('#username', 'admin');
+    await frame.fill('#password', 'password123');
+    await frame.click('#login');
+  }
+});
+
+
+Use this when you've already located the iframe element.
+
+import { test } from '@playwright/test';
+
+test('Handle iframe using contentFrame()', async ({ page }) => {
+  await page.goto('https://example.com');
+
+  const iframeElement = page.locator('#login-frame');
+
+  const frame = await iframeElement.contentFrame();
+
+  if (frame) {
+    await frame.locator('#username').fill('admin');
+    await frame.locator('#password').fill('password123');
+    await frame.locator('#login').click();
+  }

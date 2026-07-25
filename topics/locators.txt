@@ -1,0 +1,30 @@
+Locator Method	Description	                    Example	Real-Time                           Usage
+locator()	    Locate using CSS selector	    page.locator("#username")	                ⭐⭐⭐⭐⭐ Very Common
+getByRole()	    Locate by accessibility role	page.getByRole("button", { name: "Login" })	⭐⭐⭐⭐⭐ Very Common
+getByText()	    Locate by visible text	        page.getByText("Login")	                    ⭐⭐⭐ Common
+getByLabel()	Locate form fields by label	    page.getByLabel("Username")	                ⭐⭐⭐⭐ Common
+getByPlaceholder()	Locate by placeholder text	page.getByPlaceholder("Enter Email")	    ⭐⭐⭐ Common
+getByAltText()	Locate images by alt text	    page.getByAltText("Logo")	                ⭐⭐ Less Common
+getByTitle()	Locate by title attribute	    page.getByTitle("Close")	                ⭐⭐ Less Common
+getByTestId()	Locate using data-testid	    page.getByTestId("login-btn")	            ⭐⭐⭐⭐⭐ Very Common
+XPath	        Locate using XPath expression	page.locator("//button[text()='Login']")	⭐ Rare
+filter()	    Filter matching locators	    locator("tr").filter({ hasText: "John" })	⭐⭐⭐ Common
+first()	        Select the first matching element	locator(".item").first()	            ⭐⭐⭐ Common
+last()	        Select the last matching element	locator(".item").last()	                ⭐⭐⭐ Common
+nth()	        Select element by index	        locator(".item").nth(2)	                    ⭐⭐⭐ Common
+
+
+
+
+
+Yes. In Playwright, these are the primary wait types you'll encounter in real-world automation:
+
+Wait Type	Method	Purpose	Real-Time Usage
+Auto Wait	click(), fill(), check(), etc.	Automatically waits for elements to be actionable	⭐⭐⭐⭐⭐ Most Used
+Element Wait	locator.waitFor()	Wait for an element to be visible, hidden, attached, or detached	⭐⭐⭐⭐⭐ Very Common
+Selector Wait	page.waitForSelector()	Wait for an element matching a selector	⭐⭐⭐ Common
+Page Load Wait	page.waitForLoadState()	Wait for page load states (load, domcontentloaded, networkidle)	⭐⭐⭐⭐ Common
+URL Wait	page.waitForURL()	Wait for navigation to a specific URL	⭐⭐⭐⭐ Common
+Event Wait	page.waitForEvent()	Wait for events such as popup, download, or dialog	⭐⭐⭐ Common
+Function Wait	page.waitForFunction()	Wait until a JavaScript condition becomes true	⭐⭐⭐ Common
+Hard Wait	page.waitForTimeout()	Pause execution for a fixed duration	⭐ Rare (Avoid unless debugging)
