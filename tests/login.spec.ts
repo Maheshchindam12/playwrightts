@@ -108,7 +108,7 @@ test.beforeEach(async ({ page, loginPage }) => {
 
 test('Valid Login using POM', async ({ page, loginPage, inventoryPage }) => {
 
-    await loginPage.navigate();
+    // await loginPage.navigate();
 
     await loginPage.login(
         // loginData.validUser.username,
@@ -124,6 +124,21 @@ test('Valid Login using POM', async ({ page, loginPage, inventoryPage }) => {
     await inventoryPage.addBackpackToCart();
 
     await inventoryPage.openCart();
+});
+
+test('Valid Login using MCP server', async ({ page, loginPage, inventoryPage }) => {
+
+    // Use credentials provided by the MCP server via env vars if present,
+    // otherwise fall back to values from our env helper.
+    const mcpUsername = process.env.MCP_USERNAME || process.env.MCP_USER || env.username;
+    const mcpPassword = process.env.MCP_PASSWORD || process.env.MCP_PASS || env.password;
+
+    await loginPage.login(mcpUsername, mcpPassword);
+
+    await expect(page).toHaveURL(/inventory/);
+
+    await inventoryPage.verifyProductsPage();
+
 });
 
 test('Invalid Login', async ({ page, loginPage }) => {

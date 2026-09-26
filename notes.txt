@@ -232,3 +232,20 @@ Install schema validator
 Install ajv:
 
 npm install -D ajv
+
+
+mcp server
+https://github.com/microsoft/playwright-mcp
+
+Open the configuration from VS Code
+Press Ctrl + Shift + P.
+
+Run:
+
+MCP: Open User Configuration
+
+or
+
+MCP: Open Workspace Folder MCP Configuration
+
+npx playwright test tests/login.spec.ts -g "Valid Login using MCP server"

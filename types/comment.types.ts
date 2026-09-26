@@ -18,7 +18,7 @@ export interface Comment {
 export interface CreateCommentRequest {
 
 
-    postId: number;
+    postId: number; 
 
     name: string;
 
